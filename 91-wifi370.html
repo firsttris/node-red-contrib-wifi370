@@ -1,0 +1,228 @@
+<!--
+
+-->
+<script type="text/x-red" data-template-name="wifi370">
+    <div class="form-row" id="node-input-host-row">
+		<label for="node-input-host"><i class="fa fa-dot-circle-o"></i> IP:</label>
+        <input type="text" id="node-input-host" placeholder="localhost">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> LED Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="wifi370">
+    <p>Provides a simple Tcp-client to sent binary messages to your Wifi370 LED controller.</p>
+    <p><b>msg.payload</b> is sent as:</p>
+    <p><b>new Buffer(msg.payload, 'hex')</b></p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('wifi370',{
+        category: 'output',
+        color:"#FF69B4",
+        defaults: {
+            host: {value:"",validate:function(v) { return v.length > 0;} },
+            port: {value:"5577"},
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "light.png",
+        align: "right",
+        label: function() {
+            return this.name || "wifi370:"+(this.host?this.host:"");
+        },
+        labelStyle: function() {
+            return (this.name)?"node_label_italic":"";
+        },
+        oneditprepare: function() {
+
+        }
+    });
+</script>
+<!--
+
+-->
+<script type="text/x-red" data-template-name="wifi370com">
+	<div class="form-row" id="node-from-action">
+        <label for="node-input-action"><i class="fa fa-list"></i> Action</label>
+		<select id="node-input-action">
+            <option value="basic">Basic Commands</option>
+			<option value="color">Colour Ring Mode</option>
+			<option value="preset">Preset Modes</option>
+            <option value="custom">Custom Command</option>
+			<option value="through">Pass Through</option>
+        </select>
+    </div>
+    <div class="form-row" id="node-from-select">
+        <label for="node-input-command"><i class="fa fa-wrench"></i> Command</label>
+        <select id="node-input-command">
+            <option value="OPENON">Open On</option>
+            <option value="OPENOFF">Open Off</option>
+			<option value="RUNON">Run On</option>
+			<option value="RUNOFF">Run Off</option>
+        </select>
+    </div>
+	<div class="form-row hidden" id="node-from-select-present">
+        <label for="node-input-preset"><i class="fa fa-wrench"></i> Command</label>
+        <select id="node-input-preset">
+			<option value="SevenColourCrossFade">Seven Colour Cross Fade</option>
+			<option value="RedGradualChange">Red Gradual Change</option>
+			<option value="GreenGradualChange">Green Gradual Change</option>
+			<option value="BlueGradualChange">Blue Gradual Change</option>
+			<option value="YellowGradualChange">Yellow Gradual Change</option>
+			<option value="CyanGradualChange">Cyan Gradual Change</option>
+			<option value="PurpleGradualChange">Purple Gradual Change</option>
+			<option value="WhiteGradualChange">White Gradual Change</option>
+			<option value="RedGreenCrossfade">Red, Green Cross fade</option>
+			<option value="RedBlueCrossfade">Red, Blue Cross fade</option>
+			<option value="GreenBlueCrossfade">Green, Blue Cross fade</option>
+			<option value="SevenColourStrobeFlash">Seven Colour Strobe Flash</option>
+			<option value="RedStrobeFlash">Red Strobe Flash</option>
+			<option value="GreenStrobeFlash">Green Strobe Flash</option>
+			<option value="BlueStrobeFlash">Blue Strobe Flash</option>
+			<option value="YellowStrobeFlash">Yellow Strobe Flash</option>
+			<option value="CyanStrobeFlash">Cyan Strobe Flash</option>
+			<option value="PurpleStrobeFlash">Purple Strobe Flash</option>
+			<option value="WhiteStrobeFlash">White Strobe Flash</option>
+			<option value="SevenColourJumpingChange">Seven Colour Jumping Change</option>
+        </select>
+    </div>
+	<div class="form-row hidden" id="node-from-colorpicker" style="margin-left:110px;">
+		<link rel="stylesheet" href="/css/colpick.css" />
+		<div id="input_colorpicker"></div>
+	</div>
+	<div class="form-row hidden" id="node-from-custom">
+        <label for="node-input-custom"><i class="fa fa-envelope"></i> Command</label>
+        <input type="text" id="node-input-custom" placeholder="Command">
+    </div>
+	<div class="form-row hidden" id="node-from-color">
+        <label for="node-input-color"><i class="fa fa-envelope"></i> Color</label>
+        <input type="text" id="node-input-color" placeholder="Color">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="wifi370com">
+    <p>This Node provides commands for your WIFI370 LED controller.</p>
+    <p></p>
+    <p><b>Output:</b> Array of hex values.</p>
+</script>
+<script type="text/javascript">
+    RED.nodes.registerType('wifi370com', {
+    	color : "#5ab7fd",
+    	category : 'function',
+    	defaults : {
+    		action : {
+    			value : "basic"
+    		},
+    		command : {
+    			value : ""
+    		},
+			preset : {
+    			value : ""
+    		},
+    		custom : {
+    			value : ""
+    		},
+    		color : {
+    			value : ""
+    		},
+    		name : {
+    			value : ""
+    		}
+    	},
+    	inputs : 1,
+    	outputs : 1,
+    	icon : "envelope.png",
+    	label : function () {
+    		return this.name || "wifi370com";
+    	},
+    	labelStyle : function () {
+    		return (this.name) ? "node_label_italic" : "";
+    	},
+    	oneditprepare : function () {
+
+			console.log("loading colpick....");
+    		$.getScript('/js/colpick.js')
+    		.done(function (data, textStatus, jqxhr) {
+    			$('#input_colorpicker').colpick({
+    				flat : true,
+    				layout : 'hex',
+    				submit : 0,
+    				color : this.name || 'ffffff',
+    				onChange : function (hsb, hex, rgb, el, bySetColor) {
+    					$("#node-input-color").val(hex);
+    				}
+    			});
+    		});
+
+    		$("#node-input-action").change(function () {
+    			var a = $("#node-input-action").val();
+    			if (a === "basic") {
+    				$("#node-from-select").show();
+    				$("#node-from-custom").hide();
+    				$("#node-from-color").hide();
+    				$("#node-from-colorpicker").hide();
+					$("#node-from-select-present").hide();
+    			}
+				else if (a === "preset") {
+    				$("#node-from-select").hide();
+    				$("#node-from-custom").hide();
+    				$("#node-from-color").hide();
+    				$("#node-from-colorpicker").hide();
+					$("#node-from-select-present").show();
+					
+    			}
+				else if (a === "color") {
+    				$("#node-from-select").hide();
+    				$("#node-from-custom").hide();
+    				$("#node-from-color").show();
+    				$("#node-from-colorpicker").show();
+					$("#node-from-select-present").hide();
+    			}
+    			else if (a === "custom") {
+    				$("#node-from-select").hide();
+    				$("#node-from-custom").show();
+    				$("#node-from-color").hide();
+    				$("#node-from-colorpicker").hide();
+					$("#node-from-select-present").hide();
+    			}
+				else if (a === "through") {
+					$("#node-from-select").hide();
+    				$("#node-from-custom").hide();
+    				$("#node-from-color").hide();
+    				$("#node-from-colorpicker").hide();
+					$("#node-from-select-present").hide();
+				}
+    		});
+    		$("#node-input-action").change();
+
+    	},
+    	oneditsave : function () {
+    		var a = $("#node-input-action").val();
+    		if (a === "basic") {
+    			$('#node-input-name').val($("select#node-input-command option").filter(":selected").text());
+    		}
+    		else if (a === "preset") {
+    			$('#node-input-name').val($("select#node-input-preset option").filter(":selected").text());
+    		}
+			else if (a === "color") {
+    			$('#node-input-name').val($('#node-input-color').val());
+    		}
+			else if (a === "custom") {
+    			$('#node-input-name').val($('#node-input-custom').val());
+    		}
+			else if (a === "through") {
+			    $('#node-input-name').val($("select#node-input-action option").filter(":selected").text());
+			}
+    	}
+    });
+</script>
