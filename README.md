@@ -1,5 +1,5 @@
 # node-red-contrib-wifi370
-node-red node to to ease the communication with wifi370 led controller.
+node-red node to ease the communication with wifi370 led controller.
 
 two nodes are provided:
 a blue node: provides commands and is used to create the message
