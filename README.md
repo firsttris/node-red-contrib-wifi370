@@ -2,6 +2,8 @@ node-red-contrib-wifi370
 ===
 integrate your wifi370 led controller with <b>Node-RED</b>
 
+[![Build Status](https://travis-ci.org/firsttris/node-red-contrib-wifi370.svg?branch=master)](https://travis-ci.org/firsttris/node-red-contrib-wifi370) [![Coverage Status](https://coveralls.io/repos/firsttris/node-red-contrib-wifi370/badge.svg?branch=master)](https://coveralls.io/r/firsttris/node-red-contrib-wifi370?branch=master) [![Dependency Status](https://david-dm.org/firsttris/node-red-contrib-wifi370.svg)](https://david-dm.org/firsttris/node-red-contrib-wifi370) [![devDependency Status](https://david-dm.org/firsttris/node-red-contrib-wifi370/dev-status.svg)](https://david-dm.org/firsttris/node-red-contrib-wifi370#info=devDependencies)
+
 ### Overview
 node-red-contrib-wifi370 provides two nodes to control your wifi370 led controller in <b>Node-RED</b>.<br>
 
