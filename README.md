@@ -57,3 +57,18 @@ WIFI370 LED CONTROLLER:
 
 Amazon Link (Germany):<br>
 http://www.amazon.de/dp/B00G55329A/ref=cm_sw_r_tw_dp_64xWub0KG32KV
+
+### Install
+```chef
+cd node-red/
+npm install node-red-contrib-wifi370
+```
+
+### Something missing?
+feel free to create a pull request!
+but first run some tests...
+```chef
+npm install -g mocha
+cd node-red/node_modules/node-red-contrib-wifi370/
+mocha test/wifi370_spec.js
+```
