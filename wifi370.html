@@ -1,17 +1,12 @@
-<!--
-
--->
 <script type="text/x-red" data-template-name="wifi370">
     <div class="form-row" id="node-input-host-row">
 		<label for="node-input-host"><i class="fa fa-dot-circle-o"></i> IP:</label>
         <input type="text" id="node-input-host" placeholder="localhost">
     </div>
-
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> LED Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
-
 </script>
 
 <script type="text/x-red" data-help-name="wifi370">
@@ -21,27 +16,36 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('wifi370',{
-        category: 'output',
-        color:"#FF69B4",
-        defaults: {
-            host: {value:"",validate:function(v) { return v.length > 0;} },
-            port: {value:"5577"},
-            name: {value:""}
-        },
-        inputs:1,
-        outputs:0,
-        icon: "light.png",
-        align: "right",
-        label: function() {
-            return this.name || "wifi370:"+(this.host?this.host:"");
-        },
-        labelStyle: function() {
-            return (this.name)?"node_label_italic":"";
-        },
-        oneditprepare: function() {
+    RED.nodes.registerType('wifi370', {
+	category : 'output',
+	color : "#FF69B4",
+	defaults : {
+	    host : {
+		value : "",
+		validate : function(v) {
+		    return v.length > 0;
+		}
+	    },
+	    port : {
+		value : "5577"
+	    },
+	    name : {
+		value : ""
+	    }
+	},
+	inputs : 1,
+	outputs : 0,
+	icon : "light.png",
+	align : "right",
+	label : function() {
+	    return this.name || "wifi370:" + (this.host ? this.host : "");
+	},
+	labelStyle : function() {
+	    return (this.name) ? "node_label_italic" : "";
+	},
+	oneditprepare : function() {
 
-        }
+	}
     });
 </script>
 <!--
@@ -116,113 +120,103 @@
     <p><b>Output:</b> Array of hex values.</p>
 </script>
 <script type="text/javascript">
-RED.nodes.registerType('wifi370com', {
-    color : "#5ab7fd",
-    category : 'function',
-    defaults : {
-	action : {
-	    value : "basic"
+    RED.nodes.registerType('wifi370com', {
+	color : "#5ab7fd",
+	category : 'function',
+	defaults : {
+	    action : {
+		value : "basic"
+	    },
+	    command : {
+		value : ""
+	    },
+	    preset : {
+		value : ""
+	    },
+	    custom : {
+		value : ""
+	    },
+	    color : {
+		value : ""
+	    },
+	    name : {
+		value : ""
+	    }
 	},
-	command : {
-	    value : ""
+	inputs : 1,
+	outputs : 1,
+	icon : "envelope.png",
+	label : function() {
+	    return this.name || "wifi370com";
 	},
-	preset : {
-	    value : ""
+	labelStyle : function() {
+	    return (this.name) ? "node_label_italic" : "";
 	},
-	custom : {
-	    value : ""
-	},
-	color : {
-	    value : ""
-	},
-	name : {
-	    value : ""
-	}
-    },
-    inputs : 1,
-    outputs : 1,
-    icon : "envelope.png",
-    label : function () {
-	return this.name || "wifi370com";
-    },
-    labelStyle : function () {
-	return (this.name) ? "node_label_italic" : "";
-    },
-    oneditprepare : function () {
+	oneditprepare : function() {
 
-	console.log("loading colpick....");
-	$.getScript('/js/colpick.js')
-	.done(function (data, textStatus, jqxhr) {
-	    $('#input_colorpicker').colpick({
-		flat : true,
-		layout : 'hex',
-		submit : 0,
-		color : this.name || 'ffffff',
-		onChange : function (hsb, hex, rgb, el, bySetColor) {
-		    $("#node-input-color").val(hex);
+	    console.log("loading colpick....");
+	    $.getScript('/js/colpick.js').done(function(data, textStatus, jqxhr) {
+		$('#input_colorpicker').colpick({
+		    flat : true,
+		    layout : 'hex',
+		    submit : 0,
+		    color : this.name || 'ffffff',
+		    onChange : function(hsb, hex, rgb, el, bySetColor) {
+			$("#node-input-color").val(hex);
+		    }
+		});
+	    });
+
+	    $("#node-input-action").change(function() {
+		var a = $("#node-input-action").val();
+		if (a === "basic") {
+		    $("#node-from-select").show();
+		    $("#node-from-custom").hide();
+		    $("#node-from-color").hide();
+		    $("#node-from-colorpicker").hide();
+		    $("#node-from-select-present").hide();
+		} else if (a === "preset") {
+		    $("#node-from-select").hide();
+		    $("#node-from-custom").hide();
+		    $("#node-from-color").hide();
+		    $("#node-from-colorpicker").hide();
+		    $("#node-from-select-present").show();
+		} else if (a === "color") {
+		    $("#node-from-select").hide();
+		    $("#node-from-custom").hide();
+		    $("#node-from-color").show();
+		    $("#node-from-colorpicker").show();
+		    $("#node-from-select-present").hide();
+		} else if (a === "custom") {
+		    $("#node-from-select").hide();
+		    $("#node-from-custom").show();
+		    $("#node-from-color").hide();
+		    $("#node-from-colorpicker").hide();
+		    $("#node-from-select-present").hide();
+		} else if (a === "through") {
+		    $("#node-from-select").hide();
+		    $("#node-from-custom").hide();
+		    $("#node-from-color").hide();
+		    $("#node-from-colorpicker").hide();
+		    $("#node-from-select-present").hide();
 		}
 	    });
-	});
+	    $("#node-input-action").change();
 
-	$("#node-input-action").change(function () {
+	},
+	oneditsave : function() {
 	    var a = $("#node-input-action").val();
 	    if (a === "basic") {
-		$("#node-from-select").show();
-		$("#node-from-custom").hide();
-		$("#node-from-color").hide();
-		$("#node-from-colorpicker").hide();
-		$("#node-from-select-present").hide();
+		$('#node-input-name').val($("select#node-input-command option").filter(":selected").text());
+	    } else if (a === "preset") {
+		$('#node-input-name').val($("select#node-input-preset option").filter(":selected").text());
+	    } else if (a === "color") {
+		$('#node-input-name').val($('#node-input-color').val());
+	    } else if (a === "custom") {
+		$('#node-input-name').val($('#node-input-custom').val());
+	    } else if (a === "through") {
+		$('#node-input-name').val($("select#node-input-action option").filter(":selected").text());
 	    }
-	    else if (a === "preset") {
-		$("#node-from-select").hide();
-		$("#node-from-custom").hide();
-		$("#node-from-color").hide();
-		$("#node-from-colorpicker").hide();
-		$("#node-from-select-present").show();
-
-	    }
-	    else if (a === "color") {
-		$("#node-from-select").hide();
-		$("#node-from-custom").hide();
-		$("#node-from-color").show();
-		$("#node-from-colorpicker").show();
-		$("#node-from-select-present").hide();
-	    }
-	    else if (a === "custom") {
-		$("#node-from-select").hide();
-		$("#node-from-custom").show();
-		$("#node-from-color").hide();
-		$("#node-from-colorpicker").hide();
-		$("#node-from-select-present").hide();
-	    }
-	    else if (a === "through") {
-		$("#node-from-select").hide();
-		$("#node-from-custom").hide();
-		$("#node-from-color").hide();
-		$("#node-from-colorpicker").hide();
-		$("#node-from-select-present").hide();
-	    }
-	});
-	$("#node-input-action").change();
-
-    },
-    oneditsave : function () {
-	var a = $("#node-input-action").val();
-	if (a === "basic") {
-	    $('#node-input-name').val($("select#node-input-command option").filter(":selected").text());
 	}
-	else if (a === "preset") {
-	    $('#node-input-name').val($("select#node-input-preset option").filter(":selected").text());
-	}
-	else if (a === "color") {
-	    $('#node-input-name').val($('#node-input-color').val());
-	}
-	else if (a === "custom") {
-	    $('#node-input-name').val($('#node-input-custom').val());
-	}
-	else if (a === "through") {
-	    $('#node-input-name').val($("select#node-input-action option").filter(":selected").text());
-	}
-    }
-});
+    });
 </script>
