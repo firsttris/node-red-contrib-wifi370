@@ -8,9 +8,10 @@ integrate your wifi370 led controller with <b>Node-RED</b>
 node-red-contrib-wifi370 provides two nodes to control your wifi370 led controller in <b>Node-RED</b>.<br>
 <b>Node-RED</b> - is a visual tool for wiring the Internet of Things - read more @http://nodered.org<br>
 
-<ul>
-<li><b>The blue node</b>: provides commands and is used to create the message.</li>
-</ul>
+
+### The blue node: 
+provides commands and is used to create the message.
+
 <table>
   <tr>
     <td>node</td>
@@ -35,9 +36,9 @@ node-red-contrib-wifi370 provides two nodes to control your wifi370 led controll
 <li>For more info check the "httpStatic" option in settings.js in your node-red directory.</li>
 </ul>
 
-<ul>
-<li><b>The pink node</b>: is to connect a led controller (sends tcp message).</li>
-</ul>
+
+### The pink node: 
+to connect a led controller (sends tcp message).
 <table>
   <tr>
     <td>node</td>
