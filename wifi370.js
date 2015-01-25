@@ -202,7 +202,7 @@ module.exports = function(RED) {
 		    for (index3 = 0; index3 < input3.length; ++index3) {
 			var patt = new RegExp("^([A-Fa-f0-9]{2})");
 			var res = patt.test(input3[index3]);
-			if (res == false) {
+			if (res === false) {
 			    this.error("input not a 2 digit hex");
 			}
 			var value3 = "0x" + input3[index3];
