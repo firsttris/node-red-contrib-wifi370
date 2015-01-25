@@ -6,6 +6,7 @@ integrate your wifi370 led controller with <b>Node-RED</b>
 
 ### Overview
 node-red-contrib-wifi370 provides two nodes to control your wifi370 led controller in <b>Node-RED</b>.<br>
+<b>Node-RED</b> - is a visual tool for wiring the Internet of Things - read more @http://nodered.org<br>
 
 <ul>
 <li><b>The blue node</b>: provides commands and is used to create the message.</li>
@@ -25,6 +26,15 @@ node-red-contrib-wifi370 provides two nodes to control your wifi370 led controll
   </tr>
 </table>
 
+### colpick Color Picker
+
+<ul>
+<li>This node uses colPick to display a Color Picker.</li>
+<li>In order to use the Color Picker download colPick from: http://colpick.com/plugin</li>
+<li>Copy the library to the folder containing your static http content for <b>Node-RED</b>.</li>
+<li>For more info check the "httpStatic" option in settings.js in your node-red directory.</li>
+</ul>
+
 <ul>
 <li><b>The pink node</b>: is to connect a led controller (sends tcp message).</li>
 </ul>
@@ -38,15 +48,6 @@ node-red-contrib-wifi370 provides two nodes to control your wifi370 led controll
     <td><img src="https://dl.dropboxusercontent.com/u/13344648/dev/wifi370_5.PNG" alt=""/></td>
   </tr>
 </table>
-
-### colpick Color Picker
-
-<ul>
-<li>This node uses colPick to display a Color Picker.</li>
-<li>In order to use the Color Picker download colPick from: http://colpick.com/plugin</li>
-<li>Copy the library to the folder containing your static http content for <b>Node-RED</b>.</li>
-<li>For more info check the "httpStatic" option in settings.js in your node-red directory.</li>
-</ul>
 
 ### Which hardware is used in this project?
 
