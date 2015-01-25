@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-wifi370",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "node-red node to ease the communication with wifi370 led controller",
   "main": "wifi370.js",
   "directories": {
