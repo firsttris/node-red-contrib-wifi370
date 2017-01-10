@@ -1,0 +1,73 @@
+[
+  {
+    "id": "d9379db3.bc666",
+    "type": "tab",
+    "label": "WIFI370"
+  },
+  {
+    "id": "a045bd0.15a804",
+    "type": "wifi370",
+    "z": "d9379db3.bc666",
+    "action": "COMMAND",
+    "command": "INFO",
+    "rot": "",
+    "gruen": "",
+    "blau": "",
+    "name": "INFO",
+    "x": 517,
+    "y": 102,
+    "wires": [
+      [
+        "532c98de.c622d8"
+      ]
+    ]
+  },
+  {
+    "id": "956864a1.9d92c8",
+    "type": "inject",
+    "z": "d9379db3.bc666",
+    "name": "inject",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 331,
+    "y": 102,
+    "wires": [
+      [
+        "a045bd0.15a804"
+      ]
+    ]
+  },
+  {
+    "id": "532c98de.c622d8",
+    "type": "tcp request",
+    "z": "d9379db3.bc666",
+    "server": "20.1.0.142",
+    "port": "5577",
+    "out": "time",
+    "splitc": "500",
+    "name": "",
+    "x": 734,
+    "y": 101,
+    "wires": [
+      [
+        "63afb8ec.df0ac8"
+      ]
+    ]
+  },
+  {
+    "id": "63afb8ec.df0ac8",
+    "type": "debug",
+    "z": "d9379db3.bc666",
+    "name": "",
+    "active": true,
+    "console": "true",
+    "complete": "true",
+    "x": 952,
+    "y": 101,
+    "wires": []
+  }
+]

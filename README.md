@@ -1,74 +1,121 @@
 node-red-contrib-wifi370
 ===
-integrate your wifi370 led controller with <b>Node-RED</b>
+:bulb: Integrate your WIFI370 LED-Controller with <b>Node-RED</b>
 
-[![npm version](https://badge.fury.io/js/node-red-contrib-wifi370.svg)](http://badge.fury.io/js/node-red-contrib-wifi370) [![Build Status](https://travis-ci.org/firsttris/node-red-contrib-wifi370.svg?branch=master)](https://travis-ci.org/firsttris/node-red-contrib-wifi370) [![Coverage Status](https://coveralls.io/repos/firsttris/node-red-contrib-wifi370/badge.svg?branch=master)](https://coveralls.io/r/firsttris/node-red-contrib-wifi370?branch=master) [![Dependency Status](https://david-dm.org/firsttris/node-red-contrib-wifi370.svg)](https://david-dm.org/firsttris/node-red-contrib-wifi370) [![devDependency Status](https://david-dm.org/firsttris/node-red-contrib-wifi370/dev-status.svg)](https://david-dm.org/firsttris/node-red-contrib-wifi370#info=devDependencies)
+[![npm version](https://badge.fury.io/js/node-red-contrib-wifi370.svg)](http://badge.fury.io/js/node-red-contrib-wifi370)
 
-### Overview
-node-red-contrib-wifi370 provides two nodes to control your wifi370 led controller in <b>Node-RED</b>.<br>
-<b>Node-RED</b> - is a visual tool for wiring the Internet of Things - read more @http://nodered.org<br>
+### Features
+node-red-contrib-wifi370 provides commands to control your WIFI370 LED-Controller with <b>Node-RED</b>.<br>
+<b>Node-RED</b> - is a visual tool for wiring the Internet of Things (IoT) - read more @http://nodered.org<br>
+This node outputs a message to msg.payload containing a buffer which can be send to the WIFI370 LED-Controller using the TCP node.
 
+### Communication
 
-### The blue node: 
-provides commands and is used to create the message.
+This node provides bit arrays messages which can be send using the TCP node
 
-<table>
-  <tr>
-    <td>node</td>
-    <td><img src="https://dl.dropboxusercontent.com/u/13344648/dev/wifi370_1.PNG" alt=""/></td>
-  </tr>
-  <tr>
-    <td>commands</td>
-    <td><img src="https://dl.dropboxusercontent.com/u/13344648/dev/wifi370_2.PNG" alt=""/></td>
-  </tr>
-  <tr>
-    <td>colpick</td>
-    <td><img src="https://dl.dropboxusercontent.com/u/13344648/dev/wifi370_3.PNG" alt=""/></td>
-  </tr>
-</table>
+### How to use this Node?
 
-### colpick Color Picker
+#### Talk to WIFI370 with node-red-contrib-wifi370:
 
-<ul>
-<li>This node uses colPick to display a Color Picker.</li>
-<li>In order to use the Color Picker download colPick from: http://colpick.com/plugin</li>
-<li>Copy the library to the folder containing your static http content for <b>Node-RED</b>.</li>
-<li>For more info check the "httpStatic" option in settings.js in your node-red directory.</li>
-</ul>
+Inject node ---- Wifi370 node ---- TCP node
 
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-flow.PNG)
 
-### The pink node: 
-to connect a led controller (sends tcp message).
-<table>
-  <tr>
-    <td>node</td>
-    <td><img src="https://dl.dropboxusercontent.com/u/13344648/dev/wifi370_4.PNG" alt=""/></td>
-  </tr>
-  <tr>
-    <td>settings</td>
-    <td><img src="https://dl.dropboxusercontent.com/u/13344648/dev/wifi370_5.PNG" alt=""/></td>
-  </tr>
-</table>
+#### Predefined Commands
+
+- ON
+- OFF
+- INFO (Current State and Color)
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-commands.PNG)
+
+#### Color
+
+if you pass an rgb Array to this node it will be used instead.
+
+<b>msg.color = [ 255,255,255 ]</b>
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-color.PNG)
+
+#### Configure TCP node like this
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-tcp-node.PNG)
+
+#
+
+### Get current state
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-send-and-receive.PNG)
+
+Output: data": [ 102, 1, 36, 65, 33, 2, 34, 255, 0, 1, 153 ]
+
+value 3 represents ON/OFF 36/35
+
+values 7,8,9 represents RGB 34,255,0
+
+#
+
+### The Vanilla Way
+
+#### Talk to WIFI370 only with core nodes
+
+Inject node ---- Function node ---- TCP node
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-vanilla.PNG)
+
+### Function node content
+
+```
+var CMD = {
+INFO: ["239", "1", "119"],
+ON: ["204", "35", "51"],
+OFF: ["204", "36", "51"]
+};
+const buffer = new Buffer(CMD.OFF);
+msg.payload = buffer;
+return msg;
+```
 
 ### Which hardware is used in this project?
 
-WIFI370 LED CONTROLLER:
+####WIFI370-LED Controller
+
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370img.PNG)
 
-Amazon Link (Germany):<br>
-http://www.amazon.de/dp/B00G55329A/ref=cm_sw_r_tw_dp_64xWub0KG32KV
+Link to Amazon (Germany): [Link](https://www.amazon.de/dp/B00Q6FKPZI/ref=cm_sw_r_tw_dp_x_HavByb4T01Q88)
+
+### Exported Flow
+
+Find the exported flow example in "test" directory
 
 ### Install
-```chef
+
+```
 cd node-red/
-npm install node-red-contrib-wifi370
+npm install node-red-contrib-homematic
+```
+
+### Docker Install
+
+On the host machine
+
+```
+docker run \
+--name nodered \
+--restart=always \
+-v /home/docker/node-red:/data \
+-p 1880:1880 \
+-d nodered/node-red-docker
+```
+
+Also on the host machine
+
+```
+cd /home/docker/node-red
+npm install node-red-contrib-homematic
 ```
 
 ### Something missing?
+
+You can easily extend this module to fit your needs by editing the html file.
 feel free to create a pull request!
-but first run some tests...
-```chef
-npm install -g mocha
-cd node-red/node_modules/node-red-contrib-wifi370/
-mocha test/wifi370_spec.js
-```

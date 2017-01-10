@@ -1,0 +1,93 @@
+[
+  {
+    "id": "d9379db3.bc666",
+    "type": "tab",
+    "label": "WIFI370"
+  },
+  {
+    "id": "a045bd0.15a804",
+    "type": "wifi370",
+    "z": "d9379db3.bc666",
+    "action": "COMMAND",
+    "command": "ON",
+    "rot": "",
+    "gruen": "",
+    "blau": "",
+    "name": "ON",
+    "x": 510,
+    "y": 102,
+    "wires": [
+      [
+        "c5c59118.61d5f"
+      ]
+    ]
+  },
+  {
+    "id": "c5c59118.61d5f",
+    "type": "tcp out",
+    "z": "d9379db3.bc666",
+    "host": "20.1.0.142",
+    "port": "5577",
+    "beserver": "client",
+    "base64": false,
+    "end": true,
+    "name": "",
+    "x": 855,
+    "y": 154,
+    "wires": []
+  },
+  {
+    "id": "4fe013b8.f993cc",
+    "type": "function",
+    "z": "d9379db3.bc666",
+    "name": "OFF",
+    "func": "var CMD = {\nINFO: [\"239\", \"1\", \"119\"],\nON: [\"204\", \"35\", \"51\"],\nOFF: [\"204\", \"36\", \"51\"]\n};\nconst buffer = new Buffer(CMD.OFF);\nmsg.payload = buffer;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 509,
+    "y": 242,
+    "wires": [
+      [
+        "c5c59118.61d5f"
+      ]
+    ]
+  },
+  {
+    "id": "956864a1.9d92c8",
+    "type": "inject",
+    "z": "d9379db3.bc666",
+    "name": "wifi370",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 236,
+    "y": 103,
+    "wires": [
+      [
+        "a045bd0.15a804"
+      ]
+    ]
+  },
+  {
+    "id": "5706e9da.b454a8",
+    "type": "inject",
+    "z": "d9379db3.bc666",
+    "name": "vanilla",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 238,
+    "y": 243,
+    "wires": [
+      [
+        "4fe013b8.f993cc"
+      ]
+    ]
+  }
+]
