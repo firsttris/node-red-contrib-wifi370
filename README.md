@@ -76,7 +76,17 @@ msg.payload = buffer;
 return msg;
 ```
 
-### Which hardware is used in this project?
+### Which hardware is used?
+
+#### Controller Support
+|Controller  | Supported     | Type  |
+| ---------- |:-------------:| -----:|
+| LW12       | [x]           | RGB   |
+| LD382      | [x]           | RGB   |
+| LD382A     | [x]           | RGB   |
+| LD686      | [x]           | RGBW  |
+
+Thanks to Meik Dirkes for reverse engineering the communication for all controller types.
 
 ####WIFI370-LED Controller
 

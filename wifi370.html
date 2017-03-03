@@ -1,4 +1,14 @@
 <script type="text/x-red" data-template-name="wifi370">
+	<div class="form-row" id="node-from-controller">
+        <label for="node-input-controller"><i class="fa fa-list"></i> Controller</label>
+		<select id="node-input-controller">
+		    <option value=""></option>
+            <option value="LW12">LW12</option>
+			<option value="LD382A">LD382A</option>
+			<option value="LD382A">LD382</option>
+			<option value="LD686">LD686</option>
+        </select>
+    </div>
 	<div class="form-row" id="node-from-action">
         <label for="node-input-action"><i class="fa fa-list"></i> Action</label>
 		<select id="node-input-action">
@@ -35,67 +45,71 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
-
 <script type="text/x-red" data-help-name="wifi370">
     <p>This Node provides commands to control your WIFI370 LED-Controller.</p>
     <p>if you pass an rgb Array to this node it will be used instead
     <b>msg.color = [ 255,255,255 ]</b></p>
     <p><b>Output:</b> buffer which can be sent using tcp node</p>
+
+
 </script>
-
 <script type="text/javascript">
-    RED.nodes.registerType('wifi370', {
-        color: "#5ab7fd",
-        category: 'function',
-        defaults: {
-            action: {
-                value: "",
-                required: true
-            },
-            command: {
-                value: ""
-            },
-            rot: {
-                value: ""
-            },
-            gruen: {
-                value: ""
-            },
-            blau: {
-                value: ""
-            },
-            name: {
-                value: ""
-            }
-        },
-        inputs: 1,
-        outputs: 1,
-        icon: "envelope.png",
-        label: function () {
-            return this.name || "wifi370";
-        },
-        labelStyle: function () {
-            return (this.name) ? "node_label_italic" : "";
-        },
-        oneditprepare: function () {
+  RED.nodes.registerType('wifi370', {
+    color: "#5ab7fd",
+    category: 'function',
+    defaults: {
+      controller: {
+        value: "",
+        required: true
+      },
+      action: {
+        value: "",
+        required: true
+      },
+      command: {
+        value: ""
+      },
+      rot: {
+        value: ""
+      },
+      gruen: {
+        value: ""
+      },
+      blau: {
+        value: ""
+      },
+      name: {
+        value: ""
+      }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "envelope.png",
+    label: function () {
+      return this.name || "wifi370";
+    },
+    labelStyle: function () {
+      return (this.name) ? "node_label_italic" : "";
+    },
+    oneditprepare: function () {
 
-            $("#node-input-action").change(function () {
-                const selected = $("#node-input-action").val();
-                if (selected === "COMMAND") {
-                    $("#node-from-select").show();
-                    $("#node-from-color").hide();
-                }
-                if (selected === "COLOR") {
-                    $("#node-from-select").hide();
-                    $("#node-from-color").show();
-
-                }
-            });
-            $("#node-input-action").change();
-
-        },
-        oneditsave: function () {
+      $("#node-input-action").change(function () {
+        const selected = $("#node-input-action").val();
+        if (selected === "COMMAND") {
+          $("#node-from-select").show();
+          $("#node-from-color").hide();
+        }
+        if (selected === "COLOR") {
+          $("#node-from-select").hide();
+          $("#node-from-color").show();
 
         }
-    });
+      });
+      $("#node-input-action").change();
+
+    },
+    oneditsave: function () {
+
+    }
+  });
 </script>
