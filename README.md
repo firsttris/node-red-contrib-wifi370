@@ -19,7 +19,7 @@ This node provides bit arrays messages which can be send using the TCP node
 
 Inject node ---- Wifi370 node ---- TCP node
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-flow.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-wifi370/blob/master/wiki/wifi370-flow.PNG)
 
 #### Predefined Commands
 
@@ -27,7 +27,7 @@ Inject node ---- Wifi370 node ---- TCP node
 - OFF
 - INFO (Current State and Color)
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-commands.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-wifi370/blob/master/wiki/wifi370-commands.PNG)
 
 #### Color
 
@@ -35,17 +35,17 @@ if you pass an rgb Array to this node it will be used instead.
 
 <b>msg.color = [ 255,255,255 ]</b>
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-color.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-wifi370/blob/master/wiki/wifi370-color.PNG)
 
 #### Configure TCP node like this
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-tcp-node.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-wifi370/blob/master/wiki/wifi370-tcp-node.PNG)
 
 #
 
 ### Get current state
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-send-and-receive.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-wifi370/blob/master/wiki/wifi370-send-and-receive.PNG)
 
 Output: data": [ 102, 1, 36, 65, 33, 2, 34, 255, 0, 1, 153 ]
 
@@ -61,7 +61,7 @@ values 7,8,9 represents RGB 34,255,0
 
 Inject node ---- Function node ---- TCP node
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370-vanilla.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-wifi370/blob/master/wiki/wifi370-vanilla.PNG)
 
 ### Function node content
 
@@ -90,7 +90,7 @@ Thanks to Meik Dirkes for reverse engineering the communication for all controll
 
 ####WIFI370-LED Controller
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/wifi370img.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-wifi370/blob/master/wiki/wifi370img.PNG)
 
 Link to Amazon (Germany): [Link](https://www.amazon.de/dp/B00Q6FKPZI/ref=cm_sw_r_tw_dp_x_HavByb4T01Q88)
 
