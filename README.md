@@ -88,7 +88,7 @@ return msg;
 
 Thanks to Meik Dirkes for reverse engineering the communication for all controller types.
 
-####WIFI370-LED Controller
+#### WIFI370-LED Controller
 
 ![Screenshot](https://github.com/firsttris/node-red-contrib-wifi370/blob/master/wiki/wifi370img.PNG)
 
