@@ -130,5 +130,5 @@ npm install node-red-contrib-homematic
 You can easily extend this module to fit your needs by editing the html file.
 feel free to create a pull request!
 
-### License
+## License
 [MIT](http://opensource.org/licenses/MIT)
