@@ -68,7 +68,7 @@ module.exports = function (RED) {
           }
           this.message.push(cs);
         }
-        if (this.controller === 'LD382A' || controllerName === 'LD382') {
+        if (this.controller === 'LD382A' || this.controller === 'LD382') {
           this.message.push(0, 0, 15);
           this.message.unshift(49);
           let cs = 0;
